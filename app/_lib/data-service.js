@@ -13,7 +13,7 @@ export async function getCabin(id) {
     .single();
 
   // For testing
-  // await new Promise((res) => setTimeout(res, 1000));
+  //   await new Promise((res) => setTimeout(res, 2000));
 
   if (error) {
     console.error(error);
@@ -65,7 +65,7 @@ export async function getGuest(email) {
 
 export async function getBooking(id) {
   const { data, error, count } = await supabase
-    .from("bookings")
+    .from("booking")
     .select("*")
     .eq("id", id)
     .single();
@@ -80,7 +80,7 @@ export async function getBooking(id) {
 
 export async function getBookings(guestId) {
   const { data, error, count } = await supabase
-    .from("bookings")
+    .from("booking")
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
       "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
@@ -103,7 +103,7 @@ export async function getBookedDatesByCabinId(cabinId) {
 
   // Getting all bookings
   const { data, error } = await supabase
-    .from("bookings")
+    .from("booking")
     .select("*")
     .eq("cabinId", cabinId)
     .or(`startDate.gte.${today},status.eq.checked-in`);
@@ -128,6 +128,9 @@ export async function getBookedDatesByCabinId(cabinId) {
 
 export async function getSettings() {
   const { data, error } = await supabase.from("settings").select("*").single();
+
+  // For testing
+  //   await new Promise((res) => setTimeout(res, 5000));
 
   if (error) {
     console.error(error);
@@ -165,7 +168,7 @@ export async function createGuest(newGuest) {
 
 export async function createBooking(newBooking) {
   const { data, error } = await supabase
-    .from("bookings")
+    .from("booking")
     .insert([newBooking])
     // So that the newly created object gets returned!
     .select()
@@ -200,7 +203,7 @@ export async function updateGuest(id, updatedFields) {
 
 export async function updateBooking(id, updatedFields) {
   const { data, error } = await supabase
-    .from("bookings")
+    .from("booking")
     .update(updatedFields)
     .eq("id", id)
     .select()
