@@ -181,7 +181,7 @@ export async function createBooking(newBooking) {
 
   return data;
 }
-
+/* 
 /////////////
 // UPDATE
 
@@ -199,7 +199,7 @@ export async function updateGuest(id, updatedFields) {
     throw new Error("Guest could not be updated");
   }
   return data;
-}
+} */
 
 export async function updateBooking(id, updatedFields) {
   const { data, error } = await supabase
