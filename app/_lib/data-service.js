@@ -199,7 +199,7 @@ export async function updateGuest(id, updatedFields) {
     throw new Error("Guest could not be updated");
   }
   return data;
-} */
+} 
 
 export async function updateBooking(id, updatedFields) {
   const { data, error } = await supabase
@@ -227,4 +227,4 @@ export async function deleteBooking(id) {
     throw new Error("Booking could not be deleted");
   }
   return data;
-}
+} */
